@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="bg-body-tertiary me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center">
+    <div>
+    <h2 class="display-5 fw-bold pb-4">{{product.title}}</h2>
+    {% if product.image %}
+        <img src="{{product.image.url}}" alt="">
+    {% endif %}
+    </div>
+    <div>
+        <p class="lead">{{product.description|linebreaks}}</p>
+        <h3 class="display-5, fw-bold, pt-3">{{product.price}} ₽</h3>
+      <div class="d-flex justify-content-center lead fw-normal gap-3 mt-1 mb-2">
+
+      {% if user.is_authenticated %}
+        <a class="icon-link" href="{% url 'add_to_basket' product.id %}">Купить<svg class="bi"><use xlink:href="#chevron-right"/></svg></a>
+      {% else %}
+        <a class="icon-link" href="{% url 'login' %}">Купить<svg class="bi"><use xlink:href="#chevron-right"/></svg></a>
+      {% endif %}
+
+      </div>
+    </div>
+</div>
+{% endblock %}

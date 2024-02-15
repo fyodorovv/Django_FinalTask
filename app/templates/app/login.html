@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="bg-body-tertiary me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center ">
+
+    <h1 class="display-5 fw-bold pb-4 text-center">Вход</h1>
+            <p class="lead"><a class="icon-link" href="{% url 'register' %}">Зарегистрироваться</a></p>
+
+    <form action="" method="post" >
+        <p>Логин и пароль для тест входа</p>
+        <p>Логин: testuser</p>
+        <p>Пароль: geekbrains</p>
+        {% csrf_token %}
+        {% if form.errors %}
+            <div class="alert alert-danger">{{ form.non_field_errors }}</div>
+        {% endif %}
+        {% for f in form %}
+        <div class="form-label-group">
+            <label for="{{ f.id_for_label }}">{{ f.label }}</label>
+            {{ f }}
+        </div>
+        {% endfor %}
+
+        <p><button type="submit" class="btn btn-lg btn-primary mt-3">Войти</button></p>
+    </form>
+</div>
+{% endblock %}

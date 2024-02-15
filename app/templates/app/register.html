@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="bg-body-tertiary me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden"> 
+<h1 class="display-5 fw-bold pb-4">{{title}}</h1>
+<form action="" method="post" enctype="multipart/form-data">
+    <p class="lead"><a class="icon-link " href="{% url 'login' %}">Войти</a></p>
+    {% csrf_token %}
+    {% for f in form %}
+    <div class="form-label-group">
+        <label for="{{ f.id_for_label }}">{{ f.label }}</label>
+        {{ f }}
+        {{ f.errors }}
+        {{ f.help_text }}
+
+    </div>
+    {% endfor %}
+
+    
+
+    
+    <p><button type="submit" class="btn btn-lg btn-primary mt-3">Отправить</button></p>
+</form>
+</div>
+{% endblock %}

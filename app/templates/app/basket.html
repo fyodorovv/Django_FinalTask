@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% if basket %}
+    <div class="bg-body-tertiary me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center">
+        <h1 class="display-5 fw-bold pb-4">Корзина</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Название</th>
+                    <th scope="col">Изображение</th>
+                    <th scope="col">Количество</th>
+                    <th scope="col">Цена</th>
+                    <th scope="col">Добавить</th>
+                    <th scope="col">Уменьшить</th>
+                    <th scope="col">Удалить</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in basket %}    
+                <tr>
+                    <td>{{ item.product.title }}</td>
+                    {% if item.product.image %}
+                    <td><img src="{{ item.product.image.url }}" alt="" width="100"></td>
+                    {% else %}
+                    <td></td>
+                    {% endif %}
+                    <td>{{ item.quantity }}</td>
+                    <td>{{ item.product.price }}</td>
+                    <td><a href="{% url 'add_product' item.product.id %}">Добавить</a></td>
+                    <td><a href="{% url 'remove_product' item.product.id %}">Уменьшить</a></td>
+                    <td><a href="{% url 'remove_from_basket' item.product.id %}">Удалить</a></td>
+
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <p><a href="#">Оформить заказ</a></p>
+        <p><a href="{% url 'home' %}">Вернуться в каталог</a></p>
+    </div>
+    {% else %}
+    <div class="bg-body-tertiary me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center">
+        <h1 class="display-5 fw-bold pb-4">Корзина пуста</h1>
+        <p><a href="{% url 'home' %}">Вернуться в каталог</a></p>
+    </div>
+    {% endif %}
+{% endblock %}
